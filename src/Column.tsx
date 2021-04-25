@@ -22,26 +22,26 @@ export const Column = ({text, id, isPreview} : ColumnProps) => {
     const [, drop] = useDrop({
         accept: ["COLUMN", "CARD"],
         hover(item: DragItem) {
-            if (!draggedItem) {
+            if (!item) {
                 return
             }
-            if (draggedItem.type === "COLUMN") {
-                if (draggedItem.id === id) {
+            if (item.type === "COLUMN") {
+                if (item.id === id) {
                     return
                 }
-                dispatch(moveList(draggedItem.id, id))
+                dispatch(moveList(item.id, id))
             }
             else {
-                if (draggedItem.columnId === id) {
+                if (item.columnId === id) {
                     return
                 }
                 if (tasks.length) {
                     return
                 }
                 dispatch(
-                    moveTask(draggedItem.id, null, draggedItem.columnId, id)
+                    moveTask(item.id, null, item.columnId, id)
                 )
-                dispatch(setDraggedItem({ ...draggedItem, columnId: id }))
+                dispatch(setDraggedItem({ ...item, columnId: id }))
             }
         }
     })
@@ -55,7 +55,7 @@ export const Column = ({text, id, isPreview} : ColumnProps) => {
         >
             <ColumnTitle>{text}</ColumnTitle>
             {tasks.map(task => (
-                <Card id={task.id} columnId={id} text={task.id} key={task.id}/>
+                <Card id={task.id} columnId={id} text={task.text} key={task.id}/>
             ))}
             <AddNewItem
                 toggleButtonText="+ Add another task"

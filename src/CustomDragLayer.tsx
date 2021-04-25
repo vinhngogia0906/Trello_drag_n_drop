@@ -25,7 +25,7 @@ export const CustomDragLayer = () => {
                 id={draggedItem.id}
                 text={draggedItem.text}
             />
-)}
+            )}
             </DragPreviewWrapper>
         </CustomDragLayerContainer>
     ) : null
