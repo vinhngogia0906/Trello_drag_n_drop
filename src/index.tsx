@@ -1,16 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import {App} from './App';
+import React from "react"
+import ReactDOM from "react-dom"
+import "./index.css"
+import { App } from "./App"
+import { DndProvider } from "react-dnd"
+import { HTML5Backend as Backend } from "react-dnd-html5-backend"
+import { AppStateProvider } from "./state/AppStateContext"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App>
-      <p>Hello, I'm React Element</p>
-    </App>
+    <DndProvider backend={Backend}>
+      <AppStateProvider>
+        <App />
+      </AppStateProvider>
+    </DndProvider>
   </React.StrictMode>,
-  document.getElementById('root')
-);
+  document.getElementById("root")
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

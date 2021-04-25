@@ -4,24 +4,20 @@ import {Card} from "./Card"
 import {AppContainer} from "./styles"
 import { fileURLToPath } from "node:url"
 import { AddNewItem } from "./AddNewItem"
+import {useAppState} from "./state/AppStateContext"
+import {addList} from "./state/actions"
+import { CustomDragLayer } from "./CustomDragLayer"
 
 
-export const App: FC = ({children}) => {
+export const App = () => {
+  const {lists, dispatch} = useAppState()
   return (
     <AppContainer>
-      <Column text="To Do">
-        <Card text="Generate app scaffold" />
-      </Column>
-
-      <Column text="In Progress">
-        <Card text="Learn Typescript" />
-      </Column>
-
-      <Column text="Done">
-        <Card text="Begin to use static typing" />
-      </Column>
-      
-      <AddNewItem toggleButtonText="+ Add another list" onAdd={console.log} />
+      <CustomDragLayer />
+      {lists.map((list) => (
+        <Column text={list.text} key={list.id} id={list.id}/>
+      ))}
+      <AddNewItem toggleButtonText="+ Add another list" onAdd={text => dispatch(addList(text))} />
     </AppContainer>
   )
 }
